@@ -1,13 +1,16 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Migration names'
+description: 'Validate django migration names'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  type:
+    description: 'type of repository (project or app)'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+    default: app
+  start-date:
+    description: 'start date from which validate unwanted auto-migrations'
+    required: false
+  base-directory:
+    description: 'base directory from which lookup for migrations'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
