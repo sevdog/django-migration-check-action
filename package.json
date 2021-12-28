@@ -1,35 +1,35 @@
 {
-  "name": "javascript-action",
-  "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "name": "django-migration-name-checker",
+  "version": "1.1.0",
+  "description": "Check names of Django migrations, assuring no auto-generated ones are left",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
-    "package": "ncc build index.js -o dist",
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
     "test": "eslint index.js && jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/sevdog/django-migration-check-action.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
     "JavaScript"
   ],
-  "author": "GitHub",
+  "author": "Davide Setti",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/sevdog/django-migration-check-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/sevdog/django-migration-check-action#readme",
   "dependencies": {
     "@actions/core": "^1.5.0",
     "@actions/glob": "^0.1.2"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.20.5",
-    "eslint": "^6.8.0",
-    "jest": "^24.9.0"
+    "@vercel/ncc": "^0.31.1",
+    "eslint": "^8.5.0",
+    "jest": "^27.4.5"
   }
 }

@@ -1,19 +1,19 @@
 const core = require('@actions/core');
 const glob = require('@actions/glob');
+const checkDate = require('./checks');
 
-const autoRegex = /_auto_(?<year>\d{4})(?<month>\d{2})(?<day>\d{2})_(?<hour>\d{2})(?<minutes>\d{2}).py$/i;
+const AUTO_PATTERN = '????_auto_????????_????.py';
 
 async function run() {
     try {
         const repositoryType = core.getInput('type');
         let startDate = core.getInput('start-date');
         const baseDirectory = core.getInput('base-directory');
-        const autoPattern = '????_auto_????????_????.py'
         let pattern;
         if (repositoryType === 'project')
-            pattern = baseDirectory + '/*/migrations/' + autoPattern;
+            pattern = `${baseDirectory}/*/migrations/${AUTO_PATTERN}`;
         else if (repositoryType === 'app')
-            pattern = baseDirectory + '/migrations/' + autoPattern;
+            pattern = `${baseDirectory}/migrations/${AUTO_PATTERN}`;
         else
             throw Error('Invalid type provided, correct choices are "app" or "project".');
 
@@ -31,26 +31,7 @@ async function run() {
         if (!checkForDate && migrations.length > 0) {
             throw Error('Automatic migration names detected!\n' + migrations.join('\n'));
         } else {
-            const invalidDates = []
-            for (const migrationName of migrations) {
-                const migrationMatch = migrationName.match(autoRegex);
-                if (migrationMatch) {
-                    const migrationDate = new Date(
-                        migrationMatch.groups.year +
-                        '-' +
-                        migrationMatch.groups.month +
-                        '-' +
-                        migrationMatch.groups.day +
-                        'T' +
-                        migrationMatch.groups.hour +
-                        ':' +
-                        migrationMatch.groups.minutes
-                    );
-                    if (migrationDate > startDate) {
-                        invalidDates.push(migrationName);
-                    }
-                }
-            }
+            const invalidDates = migrations.filter(m => checkDate(m, startDate));
             if (invalidDates.length > 0) {
                 throw Error('Automatic migration names detected!\n' + invalidDates.join('\n'));
             }

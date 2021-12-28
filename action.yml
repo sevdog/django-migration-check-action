@@ -12,5 +12,5 @@ inputs:
     description: 'base directory from which lookup for migrations'
     required: true
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
