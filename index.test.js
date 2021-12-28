@@ -1,3 +1,4 @@
+const process = require('process');
 const cp = require('child_process');
 const path = require('path');
 const checkDate = require('./checks');
@@ -23,13 +24,14 @@ describe('Action', () => {
     const innerPath = path.join(__dirname, 'index.js');
 
     it('Throws error on invalid type', () => {
-        const result = cp.spawnSync('node', [innerPath], {env: {INPUT_TYPE: 'invalid'}});
+        const result = cp.spawnSync('node', [innerPath], {env: {...process.env, INPUT_TYPE: 'invalid'}});
         expect(result.status).toBe(1);
         expect(result.stdout.toString()).toBe('::error::Invalid type provided, correct choices are "app" or "project".\n');
     });
 
     it('Throws error on invalid project', () => {
         const result = cp.spawnSync('node', [innerPath], {env: {
+            ...process.env,
             INPUT_TYPE: 'project',
             'INPUT_BASE-DIRECTORY': './test_files/project',
             'INPUT_START-DATE': '2020-01-01T00:00:00'
@@ -43,6 +45,7 @@ describe('Action', () => {
 
     it('Throws error on invalid project', () => {
         const result = cp.spawnSync('node', [innerPath], {env: {
+            ...process.env,
             INPUT_TYPE: 'app',
             'INPUT_BASE-DIRECTORY': './test_files/project/app',
             'INPUT_START-DATE': '2020-01-01T00:00:00'
