@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/sevdog/django-migration-check-action#readme",
   "dependencies": {
-    "@actions/core": "^1.5.0",
+    "@actions/core": "^1.9.1",
     "@actions/glob": "^0.1.2"
   },
   "devDependencies": {
