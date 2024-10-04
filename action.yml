@@ -1,16 +1,16 @@
-name: 'Migration names'
-description: 'Validate django migration names'
+name: "Migration names"
+description: "Validate django migration names"
 inputs:
   type:
-    description: 'type of repository (project or app)'
+    description: "type of repository (project or app)"
     required: true
     default: app
   start-date:
-    description: 'start date from which validate unwanted auto-migrations'
+    description: "start date from which validate unwanted auto-migrations"
     required: false
   base-directory:
-    description: 'base directory from which lookup for migrations'
+    description: "base directory from which lookup for migrations"
     required: true
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"
