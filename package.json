@@ -1,6 +1,6 @@
 {
   "name": "django-migration-name-checker",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Check names of Django migrations, assuring no auto-generated ones are left",
   "main": "index.js",
   "exports": {
@@ -37,8 +37,8 @@
   },
   "homepage": "https://github.com/sevdog/django-migration-check-action#readme",
   "dependencies": {
-    "@actions/core": "^1.10.1",
-    "@actions/glob": "^0.5.0"
+    "@actions/core": "^3.0.0",
+    "@actions/glob": "^0.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

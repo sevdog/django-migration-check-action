@@ -1,12 +1,13 @@
-const core = require("@actions/core");
-const glob = require("@actions/glob");
 const checkDate = require("./checks");
 
 const AUTO_PATTERN = "????_auto_????????_????.py";
 
 async function run() {
+  const core = await import("@actions/core");
+  const glob = await import("@actions/glob");
+
   try {
-    const repositoryType = core.getInput("type");
+    const repositoryType = core.getInput("type", { required: true });
     let startDate = core.getInput("start-date");
     const baseDirectory = core.getInput("base-directory");
     let pattern;
@@ -23,7 +24,7 @@ async function run() {
     if (startDate) {
       startDate = new Date(startDate);
       if (isNaN(startDate))
-        console.log("Invalid date provided, date checks skipped");
+        core.info("Invalid date provided, date checks skipped");
       else checkForDate = true;
     }
 
